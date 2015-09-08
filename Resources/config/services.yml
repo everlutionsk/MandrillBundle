@@ -1,0 +1,34 @@
+services:
+
+    everlution.mandrill.request_signature_generator:
+        class: Everlution\MandrillBundle\Support\RequestSignatureGenerator
+        public: false
+
+
+    # OUTBOUND
+
+    everlution.mandrill.mail_system:
+        class: Everlution\MandrillBundle\Outbound\MailSystem\MailSystem
+        arguments:
+            - %everlution.mandrill.api_key%
+            - %everlution.mandrill.async_mandrill_sending%
+            - @everlution.mandrill.outbound.message_converter
+
+    everlution.mandrill.outbound.message_converter:
+        class: Everlution\MandrillBundle\Outbound\MailSystem\MessageConverter
+        public: false
+
+    everlution.mandrill.outbound.message_event.request_processor:
+        class: Everlution\MandrillBundle\Outbound\MessageEvent\RequestProcessor
+        arguments:
+            - @everlution.mandrill.request_signature_generator
+            - "KEY" #TODO: Real Webhook key
+
+
+    # INBOUND
+
+    everlution.mandrill.inbound.request_processor:
+        class: Everlution\MandrillBundle\Inbound\RequestProcessor
+        arguments:
+            - @everlution.mandrill.request_signature_generator
+            - "KEY" #TODO: Real Webhook key

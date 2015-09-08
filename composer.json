@@ -1,0 +1,31 @@
+{
+  "name": "everlutionsk/MandrillBundle",
+  "version": "0.1.0",
+  "description": "Everlution mandrill bundle for Symfony framework",
+  "type": "everlution-bundle",
+  "keywords": ["email", "symfony", "everlution", "bundle", "mandrill"],
+  "authors": [
+    {
+      "name": "Tomas Szabo",
+      "email": "tomas.szabo@everlution.sk"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "symfony/http-kernel": "^2.5",
+    "symfony/config": "^2.5",
+    "symfony/dependency-injection": "^2.5",
+    "mandrill/mandrill": "1.0.*",
+    "everlutionsk/EmailBundle2": "dev-master"
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/everlutionsk/EmailBundle2"
+    }
+  ],
+  "autoload": {
+    "psr-0": { "Everlution\\MandrillBundle": "" }
+  },
+  "target-dir": "Everlution/MandrillBundle"
+}
