@@ -44,6 +44,8 @@ everlution_email:
 Secondly, you must configure MandrillBundle itself
 
 ```yml
+# app/config/config.yml
+
 # MandrillBundle Configuration
 everlution_mandrill:
     api_key: SECRET_API_KEY
