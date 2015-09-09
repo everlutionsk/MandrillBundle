@@ -16,7 +16,7 @@
     "symfony/config": "^2.5",
     "symfony/dependency-injection": "^2.5",
     "mandrill/mandrill": "1.0.*",
-    "everlutionsk/EmailBundle2": "dev-master"
+    "everlutionsk/email-bundle-2": "dev-master"
   },
   "repositories": [
     {
