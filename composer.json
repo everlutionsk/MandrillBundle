@@ -1,5 +1,5 @@
 {
-  "name": "everlutionsk/MandrillBundle",
+  "name": "everlutionsk/mandrill-bundle",
   "version": "0.1.0",
   "description": "Everlution mandrill bundle for Symfony framework",
   "type": "everlution-bundle",
