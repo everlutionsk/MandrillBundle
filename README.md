@@ -52,8 +52,18 @@ everlution_mandrill:
 
 **async_mandrill_sending** - If it is true, then Mandrill use a background sending mode that is optimized for bulk sending. In async mode, Mandrill will immediately return a status of "queued" for every message. This is a recommended setting, because bundle is able to handle message events, which describe message state, later and fully automatically.
 
+# Usage
 
-TODO
+### Message transformers
+*Mail system* service provided by this bundle transform [OutboundMessage](https://github.com/everlutionsk/EmailBundle2/blob/master/Outbound/Message/OutboundMessage.php) into JSON and then POST this JSON to [Mandrill API](https://mandrillapp.com/api/docs/messages.JSON.html).
+However, this JSON can be modified just before it is posted to Mandrill. To do this you must create a service, which implements [RawMessageTransformer interface](Outbound/MailSystem/RawMessageTransformer.php) and add following tag:
+
+```yml
+everlution.mandrill.outbound.raw_message_transformer
+```
+
+
+# TODO
 ----
 - Request signature calculation
 - Webhook keys configuration
