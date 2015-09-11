@@ -3,15 +3,15 @@
 namespace Everlution\MandrillBundle\Outbound\MailSystem;
 
 use Everlution\EmailBundle\Outbound\Message\UniqueOutboundMessage;
-use Everlution\EmailBundle\Outbound\MailSystem\MailSystemMessageInfo;
+use Everlution\EmailBundle\Outbound\MailSystem\MailSystemMessageStatus;
 use Everlution\EmailBundle\Message\Recipient\Recipient;
 use Everlution\EmailBundle\Outbound\MailSystem\MailSystemResult as MailSystemResultInterface;
 
 class MailSystemResult implements MailSystemResultInterface
 {
 
-    /** @var MailSystemMessageInfo[] */
-    protected $mailSystemMessagesInfo;
+    /** @var MailSystemMessageStatus[] */
+    protected $mailSystemMessagesStatus;
 
     /**
      * @param array $mandrillResult
@@ -20,35 +20,35 @@ class MailSystemResult implements MailSystemResultInterface
     public function __construct(array $mandrillResult, UniqueOutboundMessage $uniqueMessage)
     {
         $recipients = $uniqueMessage->getMessage()->getRecipients();
-        $this->mailSystemMessagesInfo = $this->createMailSystemMessagesInfo($mandrillResult, $recipients);
+        $this->mailSystemMessagesStatus = $this->createMailSystemMessagesStatus($mandrillResult, $recipients);
     }
 
     /**
-     * @return MailSystemMessageInfo[]
+     * @return MailSystemMessageStatus[]
      */
-    public function getMailSystemMessagesInfo()
+    public function getMailSystemMessagesStatus()
     {
-        return $this->mailSystemMessagesInfo;
+        return $this->mailSystemMessagesStatus;
     }
 
     /**
      * @param array $mandrillResult
      * @param Recipient[] $recipients
-     * @return MailSystemMessageInfo[]
+     * @return MailSystemMessageStatus[]
      */
-    protected function createMailSystemMessagesInfo(array $mandrillResult, array $recipients)
+    protected function createMailSystemMessagesStatus(array $mandrillResult, array $recipients)
     {
-        $messagesInfo = [];
+        $messagesStatus = [];
 
-        foreach ($mandrillResult as $rawMessageInfo) {
-            $recipient = $this->findRecipientByEmail($recipients, $rawMessageInfo['email']);
+        foreach ($mandrillResult as $rawMessageStatus) {
+            $recipient = $this->findRecipientByEmail($recipients, $rawMessageStatus['email']);
 
             if ($recipient !== null) {
-                $messagesInfo[] = $this->createMailSystemMessageInfo($rawMessageInfo, $recipient);
+                $messagesStatus[] = $this->createMailSystemMessageStatus($rawMessageStatus, $recipient);
             }
         }
 
-        return $messagesInfo;
+        return $messagesStatus;
     }
 
     /**
@@ -68,18 +68,18 @@ class MailSystemResult implements MailSystemResultInterface
     }
 
     /**
-     * @param array $rawMessageInfo
+     * @param array $rawMessageStatus
      * @param Recipient $recipient
-     * @return MailSystemMessageInfo
+     * @return MailSystemMessageStatus
      */
-    protected function createMailSystemMessageInfo($rawMessageInfo, Recipient $recipient)
+    protected function createMailSystemMessageStatus($rawMessageStatus, Recipient $recipient)
     {
         $rejectReason = null;
-        if (isset($rawMessageInfo['reject_reason'])) {
-            $rejectReason = $rawMessageInfo['reject_reason'];
+        if (isset($rawMessageStatus['reject_reason'])) {
+            $rejectReason = $rawMessageStatus['reject_reason'];
         }
 
-        return new MailSystemMessageInfo($rawMessageInfo['_id'], $rawMessageInfo['status'], $rejectReason, $recipient);
+        return new MailSystemMessageStatus($rawMessageStatus['_id'], $rawMessageStatus['status'], $rejectReason, $recipient);
     }
 
 }
