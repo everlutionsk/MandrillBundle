@@ -14,13 +14,13 @@ class RequestSignatureGenerator
      */
     public function generateSignature(Request $request, $webhookKey)
     {
-        $data = $request->request->all();
+        $postParameters = $request->request->all();
 
         $signedData = $request->getRequestUri();
 
-        ksort($data);
+        ksort($postParameters);
 
-        foreach ($data as $key => $value) {
+        foreach ($postParameters as $key => $value) {
             $signedData .= $key;
             $signedData .= $value;
         }
