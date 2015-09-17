@@ -1,6 +1,6 @@
 {
   "name": "everlutionsk/mandrill-bundle",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Everlution mandrill bundle for Symfony framework",
   "type": "everlution-bundle",
   "keywords": ["email", "symfony", "everlution", "bundle", "mandrill"],
@@ -16,14 +16,8 @@
     "symfony/config": "^2.5",
     "symfony/dependency-injection": "^2.5",
     "mandrill/mandrill": "1.0.*",
-    "everlutionsk/email-bundle-2": "dev-master"
+    "everlutionsk/email-bundle-2": "1.*"
   },
-  "repositories": [
-    {
-      "type": "git",
-      "url": "https://github.com/everlutionsk/EmailBundle2"
-    }
-  ],
   "autoload": {
     "psr-0": { "Everlution\\MandrillBundle": "" }
   },
