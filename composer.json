@@ -1,5 +1,6 @@
 {
   "name": "everlutionsk/mandrill-bundle",
+  "license": "MIT",
   "version": "1.0.0",
   "description": "Everlution mandrill bundle for Symfony framework",
   "type": "everlution-bundle",
