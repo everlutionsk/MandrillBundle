@@ -13,6 +13,7 @@ services:
             - %everlution.mandrill.api_key%
             - %everlution.mandrill.async_mandrill_sending%
             - @everlution.mandrill.outbound.message_converter
+            - @everlution.mandrill.outbound.transparent_recipient_enforcer
 
     everlution.mandrill.outbound.message_converter:
         class: Everlution\MandrillBundle\Outbound\MailSystem\MessageConverter
@@ -23,6 +24,12 @@ services:
         arguments:
             - @everlution.mandrill.request_signature_generator
             - "KEY" #TODO: Real Webhook key
+
+    everlution.mandrill.outbound.transparent_recipient_enforcer:
+            class: Everlution\MandrillBundle\Outbound\MailSystem\TransparentRecipientEnforcer
+            public: false
+            arguments:
+                - %everlution.mandrill.enforced_delivery_address%
 
 
     # INBOUND

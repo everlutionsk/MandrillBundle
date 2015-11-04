@@ -50,10 +50,13 @@ Secondly, you must configure MandrillBundle itself
 everlution_mandrill:
     api_key: SECRET_API_KEY
     async_mandrill_sending: true
+    enforced_delivery_address: EMAIL_ADDRESS|NULL
 ```
 
 **async_mandrill_sending** - If it is true, then Mandrill use a background sending mode that is optimized for bulk sending. In async mode, Mandrill will immediately return a status of "queued" for every message. This is a recommended setting, because bundle is able to handle message events, which describe message state, later and fully automatically.
 
+
+**enforced_delivery_address** - [Optional] Email address, which will be used to override recipient address in every outbound message. Changes are fully transparent and data stored in database is not affected by this transformation. *Warning: Mail system ID could be associated with wrong recipient due to Mandrill API limitations. This limitation could lead to incorrect 'outbound message event' handling.*
 # Usage
 
 ### Message transformers

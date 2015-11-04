@@ -34,6 +34,11 @@ class Configuration implements ConfigurationInterface
                     ->defaultFalse()
                     ->info('Enable a background mandrill sending mode that is optimized for bulk sending. In async mode, messages/send will immediately return a status of "queued" for every recipient.')
                 ->end()
+
+                ->scalarNode('enforced_delivery_address')
+                    ->defaultValue(null)
+                    ->info('Recipient address, which will be enforced for every outbound message.')
+                ->end()
             ->end();
 
         return $treeBuilder;

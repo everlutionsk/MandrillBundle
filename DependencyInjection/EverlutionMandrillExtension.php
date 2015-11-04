@@ -32,6 +32,7 @@ class EverlutionMandrillExtension extends Extension
 
         $container->setParameter('everlution.mandrill.api_key', $processedConfig['api_key']);
         $container->setParameter('everlution.mandrill.async_mandrill_sending', $processedConfig['async_mandrill_sending']);
+        $container->setParameter('everlution.mandrill.enforced_delivery_address', $processedConfig['enforced_delivery_address']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

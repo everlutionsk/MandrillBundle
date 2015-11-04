@@ -23,16 +23,21 @@ class MailSystem implements MailSystemInterface
     /** @var MessageConverter */
     protected $messageConverter;
 
+    /** @var TransparentRecipientEnforcer */
+    protected $recipientEnforcer;
+
     /**
      * @param string $apiKey
      * @param bool $asyncMandrillSending
      * @param MessageConverter $messageConverter
+     * @param TransparentRecipientEnforcer $recipientEnforcer
      */
-    public function __construct($apiKey, $asyncMandrillSending, MessageConverter $messageConverter)
+    public function __construct($apiKey, $asyncMandrillSending, MessageConverter $messageConverter, TransparentRecipientEnforcer $recipientEnforcer)
     {
         $this->mandrill = new Mandrill($apiKey);
         $this->asyncMandrillSending = $asyncMandrillSending;
         $this->messageConverter = $messageConverter;
+        $this->recipientEnforcer = $recipientEnforcer;
     }
 
     /**
@@ -80,11 +85,15 @@ class MailSystem implements MailSystemInterface
         $rawMessage = $this->messageConverter->convertToRawMessage($uniqueMessage);
         $this->transformRawMessage($rawMessage);
 
+        $this->recipientEnforcer->tryTransformRawMessage($rawMessage);
+
         if ($template === null) {
             $mandrillResult = $this->sendRawMessage($rawMessage, $sendAt);
         } else {
             $mandrillResult = $this->sendRawTemplateMessage($rawMessage, $template, $sendAt);
         }
+
+        $this->recipientEnforcer->tryTransformMandrillResult($mandrillResult, $uniqueMessage->getMessage()->getRecipients());
 
         return new MailSystemResult($mandrillResult, $uniqueMessage);
     }
