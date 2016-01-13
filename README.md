@@ -18,7 +18,7 @@ public function registerBundles()
 {
     return array(
         // ...
-        new Everlution\EmailBundle\EverlutionMandrillBundle()
+        new Everlution\MandrillBundle\EverlutionMandrillBundle()
     );
 }
 ```
