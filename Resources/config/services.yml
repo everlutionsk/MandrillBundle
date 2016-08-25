@@ -28,7 +28,7 @@ services:
             class: Everlution\MandrillBundle\Outbound\MailSystem\TransparentRecipientEnforcer
             public: false
             arguments:
-                - %everlution.mandrill.enforced_delivery_address%
+                - "%everlution.mandrill.enforced_delivery_address%"
 
     # INBOUND
 
